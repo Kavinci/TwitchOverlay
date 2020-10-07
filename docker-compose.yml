@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  twitchoverlay:
+    container_name: twitchoverlay
+    hostname: twitchoverlay
+    build: .
+    image: node:alpine
+    ports: 
+      - "3000:3000"
+    volumes:
+     - ""
+
+  db:
+    container_name: db
+    hostname: db
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "Vh267g2MFXvlJIwfrUYch"
+      POSTGRES_USER: "app"
+      POSTGRES_MULTIPLE_DATABASES: "overlay,bot,twitch"
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  adminer:
+    container_name: adminer
+    hostname: adminer
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+volumes: 
+     pgdata:
